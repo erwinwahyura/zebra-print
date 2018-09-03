@@ -66,6 +66,7 @@
                 }
               })
               await this.sendData()
+
             } catch (err) {
               alert('Error please try again')
             }
@@ -232,7 +233,7 @@
                   }
                   selected_printer.send(format_start + format_end, null, null)
           		}
-                this.printComplete()
+              this.printComplete()
           		} else {
           			// this.printerError(text)
           		}
