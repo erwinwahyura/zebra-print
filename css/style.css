@@ -1,0 +1,89 @@
+.table-parent {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  width: 80%;
+  border: 1px solid #dedede;
+}
+
+
+
+/* ====== printer component ====== */
+.printer-parent {
+  display: flex;
+  width: 100%;
+}
+.printer-main {
+  display: flex;
+  margin: 30px 10% 30px 10%;
+  width: 80%;
+  align-items: flex-end;
+}
+
+.printer-detail {
+  display: flex;
+  width: 20%;
+}
+
+.printer-selected {
+  display: flex;
+  width: 40%;
+  flex-wrap: wrap;
+}
+
+.error-page {
+  display: none;
+}
+.btn-print {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  height: 50px;
+
+}
+.btn-primary:hover {
+  background-color: #3770ac;
+  border: 1px solid #3770ac;
+  cursor: pointer;
+}
+.btn-primary {
+  background-color: #ffffff;
+  border: 1px solid #3770ac;
+  color: #3770ac;
+}
+
+#printers {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.printer-current {
+  display: flex;
+  margin: 15px 0 0 0;
+}
+
+.printer-name-option {
+  display: flex;
+  width: 100%;
+}
+
+.list-text {
+  font-weight: 400;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+}
+
+/* init for the first time! */
+.init {
+  display: none;
+}
