@@ -87,3 +87,12 @@
 .init {
   display: none;
 }
+
+#printer_data_loading {
+  display: none !important;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-left: 10%;
+  width: 10%;
+}
