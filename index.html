@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script>  production version-->
+    <!-- <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <!-- <script src="lib/jquery-1.11.1.min.js"></script> -->
+    <script src="lib/BrowserPrint-1.0.4.min.js"></script>
+    <script src="lib/index.js"></script>
+    <script type="text/javascript">
+      $(document).ready(setup_web_print);
+    </script>
+  </head>
+  <body>
+    <div id="print-barcode">
+      <div id="printer_details" style="display:none">
+        <span id="selected_printer">No data</span>
+        <button type="button" class="btn btn-success" onclick="changePrinter()">Change</button>
+      </div><br /> <!-- /printer_details -->
+      <div id="printer_select" style="display:none">
+        Zebra Printer Options<br />
+        Printer: <select id="printers"></select>
+      </div> <!-- /printer_select -->
+      <div id="print_form" style="display:none">
+        <button type="button" class="btn btn-lg btn-primary" onclick="sendData();" value="Print">Print Label</button>
+      </div> <!-- /print_form -->
+      <div id="error_div" style="width:500px; display:none"><div id="error_message"></div>
+        <button type="button" class="btn btn-lg btn-success" onclick="trySetupAgain();">Try Again</button>
+      </div><!-- /error_div -->
+    </div>
+    <script>
+      let vm = new Vue({
+        el: '#print-barcode',
+        data: {
+
+        },
+        methods: {
+
+        }
+      })
+    </script>
+  </body>
+</html>
