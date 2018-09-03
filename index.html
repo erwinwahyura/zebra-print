@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script>  production version-->
     <!-- <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script> -->
@@ -14,32 +14,53 @@
     <script type="text/javascript">
       $(document).ready(setup_web_print);
     </script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div id="print-barcode">
-      <div id="printer_details" style="display:none">
-        <span id="selected_printer">No data</span>
-        <button type="button" class="btn btn-success" onclick="changePrinter()">Change</button>
-      </div><br /> <!-- /printer_details -->
-      <div id="printer_select" style="display:none">
-        Zebra Printer Options<br />
-        Printer: <select id="printers"></select>
-      </div> <!-- /printer_select -->
-      <div id="print_form" style="display:none">
-        <button type="button" class="btn btn-lg btn-primary" onclick="sendData();" value="Print">Print Label</button>
-      </div> <!-- /print_form -->
-      <div id="error_div" style="width:500px; display:none"><div id="error_message"></div>
-        <button type="button" class="btn btn-lg btn-success" onclick="trySetupAgain();">Try Again</button>
-      </div><!-- /error_div -->
+      <div :class="{ init: status }">
+        <div class="printer-parent">
+          <printer-info></printer-info>
+        </div>
+        <list-barcode :data="listData"></list-barcode>
+      </div>
+      <div :class="{ init: !status }">
+        <img class="loader" src="img/spinner.gif">
+      </div>
     </div>
+
+    <!-- LIST IMPORT OF COMPONENTS -->
+    <script src="js/listbarcode.js"></script>
+    <script src="js/printinfo.js"></script>
+
+    <!-- VUE INSTANCE -->
     <script>
       let vm = new Vue({
         el: '#print-barcode',
         data: {
-
+          listData: [],
+          status: true,
+          prod: 'http://35.240.223.197',
         },
         methods: {
-
+          getDataToPrint () {
+            let self = this
+            axios.get('http://localhost:4000/label/list/print/list', {
+              headers: {
+                token: localStorage.getItem('token_alutech')
+              }
+            }).then((barcode) => {
+              console.log(barcode);
+              self.listData = barcode.data.list
+              self.status = false
+            }).catch((err) => {
+              console.log(err)
+            })
+          }
+        },
+        created () {
+          this.getDataToPrint()
         }
       })
     </script>
