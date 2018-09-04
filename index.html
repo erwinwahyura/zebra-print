@@ -313,10 +313,19 @@
           }
         },
         created () {
-          this.getDataToPrint()
-          $('#printer_data_loading').hide()
+          let token = localStorage.getItem('token_alutech')
+          if (token) {
+            this.getDataToPrint()
+            $('#printer_data_loading').hide()
+          } else {
+            window.location.href = "http://alutech-print.uniform.id/login.html"
+          }
+
+
         }
       })
+
+
     </script>
   </body>
 </html>
