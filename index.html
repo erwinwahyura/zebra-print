@@ -47,29 +47,16 @@
           prod: 'http://35.240.223.197',
         },
         methods: {
-          async checkConnection () {
-            let self = this
-            let arrLabels = []
-            self.arr.forEach(v => {
-              arrLabels.push(v.label)
-            })
-            try {
-              let response = await axios.put(`http://localhost:4000/section/in/print/label/${self.arr[0].sectioninid}`, {
-                labels: arrLabels,
-                section: self.arr[0].section,
-                sectionid: self.arr[0].sectionid
-              }, {
-                headers: {
-                  rolename: 'approve',
-                  roletable: 'Section In',
-                  token: localStorage.getItem('token_alutech')
-                }
-              })
-              await this.sendData()
-
-            } catch (err) {
-              alert('Error please try again')
-            }
+          checkConnection () {
+            // alert('orint')
+              this.sendData()
+            // let self = this
+            // try {
+            //   await self.sendData()
+            //   console.log('sini---')
+            // } catch (err) {
+            //   alert('Error please try again')
+            // }
           },
           isPrinterReady () {
             selected_printer.sendThenRead("~HQES", function (text) {
@@ -108,10 +95,11 @@
               if ((!ok) && (statuses.Count == 0))
                 statuses.push("Error: Unknown Error")
             }, null)
+
           },
           getDataToPrint () {
             let self = this
-            axios.get('http://localhost:4000/label/list/print/list', {
+            axios.get('http://35.240.223.197/label/list/print/list', {
               headers: {
                 token: localStorage.getItem('token_alutech')
               }
@@ -123,33 +111,50 @@
             })
           },
           updateDataPrint () {
-
           },
           sendData () {
+            // ^A@N,50,50^CW,"B:*.TTF"
             let self = this
             this.showLoading("Printing...")
-          	this.checkPrinterStatus(function (text) {
+          	self.checkPrinterStatus(function (text) {
               let format_start,
                   format_end
           		if (text == "Ready to Print") {
           			for (let i = 0; i<self.arr.length; i+=2) {
-                  // if (self.arr[i].is_full) {
                   if (self.arr.length - i === 1) {
-                    format_start = `
-            				^XA
+                    let id = self.arr.length - 1
+                    if (self.arr[id].is_full) {
+                      format_start = `
+              				^XA
+              				^FO160,30^CFD^FDALUTECH^FS
+              				^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+              				^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
+              				^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+              				^FO20,240^A0,20,30^FH^FDQTY     : ${self.arr[i].quantity}^FS
+              				^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
-            				^FO160,30^CFD^FDALUTECH^FS
-            				^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
-                    ^FO250,175^CFD^FD(*******)^FS
-            				^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-            				^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
-            				^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
-            				^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
+              				^FO50,50^BY2^BCN,50,Y,,N
 
-            				^FO50,50^BY2^BCN,50,Y,,N
-            				^FD${self.arr[i].barcode}^FS
-            				`
-                    format_end = "^FS^XZ"
+              				^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
+              				`
+                      format_end = "^FS^XZ"
+                    } else {
+                      format_start = `
+              				^XA
+
+              				^FO160,30^CFD^FDALUTECH^FS
+              				^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                      ^FO250,175^A0N,70,30^FH^FD*******^FS
+              				^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
+              				^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+              				^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+              				^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
+
+              				^FO50,50^BY2^BCN,50,Y,,N
+              				^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
+              				`
+                      format_end = "^FS^XZ"
+                    }
                   } else {
                     if (self.arr[i+1].is_full === false) {
                       format_start = `
@@ -163,18 +168,18 @@
                       ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
                       ^FO470,50^BY2^BCN,50,Y,,N
-                      ^FD${self.arr[i+1].barcode}^FS
+                      ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
                       ^FO600,30^CFD^FDALUTECH^FS
                       ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
-                      ^FO680,175^CFD^FD(*******)^FS
+                      ^FO680,175^A0N,70,30^FH^FD*******^FS
                       ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
                       ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
                       ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
                       ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
                       ^FO50,50^BY2^BCN,50,Y,,N
-                      ^FD${self.arr[i].barcode}^FS
+                      ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
                       `
                       format_end = "^FS^XZ"
                     } else if (self.arr[i].is_full === false) {
@@ -183,14 +188,14 @@
 
                       ^FO160,30^CFD^FDALUTECH^FS
                       ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
-                      ^FO250,175^CFD^FD(*******)^FS
+                      ^FO250,175^A0N,70,30^FH^FD*******^FS
                       ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
                       ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
                       ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
                       ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
                       ^FO470,50^BY2^BCN,50,Y,,N
-                      ^FD${self.arr[i+1].barcode}^FS
+                      ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
                       ^FO600,30^CFD^FDALUTECH^FS
                       ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
@@ -200,14 +205,13 @@
                       ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
                       ^FO50,50^BY2^BCN,50,Y,,N
-                      ^FD${self.arr[i].barcode}^FS
+                      ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
                       `
                       format_end = "^FS^XZ"
                     }
                     else {
                       format_start = `
                       ^XA
-
                       ^FO160,30^CFD^FDALUTECH^FS
                       ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
                       ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
@@ -216,7 +220,8 @@
                       ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
                       ^FO470,50^BY2^BCN,50,Y,,N
-                      ^FD${self.arr[i+1].barcode}^FS
+
+                      ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
                       ^FO600,30^CFD^FDALUTECH^FS
                       ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
@@ -226,21 +231,20 @@
                       ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
                       ^FO50,50^BY2^BCN,50,Y,,N
-                      ^FD${self.arr[i].barcode}^FS
+                      ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
                       `
                       format_end = "^FS^XZ"
                     }
                   }
                   selected_printer.send(format_start + format_end, null, null)
-          		}
-              this.printComplete()
-          		} else {
-          			// this.printerError(text)
+          		  }
+              self.printComplete()
           		}
           	})
           },
           checkPrinterStatus (finishedFunction) {
             selected_printer.sendThenRead("~HQES", function (text) {
+              console.log(text, '<--- textnya');
               var that = this
               var statuses = new Array()
               var ok = false
@@ -287,9 +291,31 @@
           	$('#error_div').show()
           	$('#error_message').html(text)
           },
-          printComplete() {
-          	this.hideLoading()
+          async printComplete() {
+            let self = this
+          	self.hideLoading()
           	alert ("Printing complete")
+            let arrLabels = []
+            self.arr.forEach(v => {
+              arrLabels.push(v.label)
+            })
+            try {
+              await axios.put(`http://35.240.223.197/section/in/print/label/${self.arr[0].sectioninid}`, {
+                labels: arrLabels,
+                section: self.arr[0].section,
+                sectionid: self.arr[0].sectionid
+              }, {
+                headers: {
+                  rolename: 'approve',
+                  roletable: 'Section In',
+                  token: localStorage.getItem('token_alutech')
+                }
+              })
+              await self.getDataToPrint()
+            } catch (err) {
+              alert("Please try again", err.response.data.message)
+            }
+
           },
           hideLoading () {
           	$('#printer_data_loading').hide()
