@@ -121,9 +121,11 @@
                   format_end
           		if (text == "Ready to Print") {
           			for (let i = 0; i<self.arr.length; i+=2) {
+                  // jika yang di print itu 1 aja masuk if dibawah ini
                   if (self.arr.length - i === 1) {
                     let id = self.arr.length - 1
                     if (self.arr[id].is_full) {
+                      console.log('jika ganjil dan kiri penuh');
                       format_start = `
               				^XA
               				^FO160,30^CFD^FDALUTECH^FS
@@ -139,6 +141,7 @@
               				`
                       format_end = "^FS^XZ"
                     } else {
+                      console.log('jika ganjil dan kanan tidak penuh penuh');
                       format_start = `
               				^XA
 
@@ -156,84 +159,119 @@
                       format_end = "^FS^XZ"
                     }
                   } else {
-                    if (self.arr[i+1].is_full === false) {
-                      format_start = `
-                      ^XA
+                    if (self.arr[i].is_full === false) { // jika kiri tidak penuh
+                      if (self.arr[i+1].is_full) { // jika kiri tidak penuh dan kanan penuh
+                        console.log(`jika kiri tidak penuh dan kanan penuh`);
+                        format_start = `
+                        ^XA
 
-                      ^FO160,30^CFD^FDALUTECH^FS
-                      ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
-                      ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-                      ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
-                      ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
-                      ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
+                        ^FO160,30^CFD^FDALUTECH^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                        ^FO250,175^A0N,70,30^FH^FD*******^FS
+                        ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
-                      ^FO470,50^BY2^BCN,50,Y,,N
-                      ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
+                        ^FO470,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
-                      ^FO600,30^CFD^FDALUTECH^FS
-                      ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
-                      ^FO680,175^A0N,70,30^FH^FD*******^FS
-                      ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
-                      ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
-                      ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
-                      ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
+                        ^FO600,30^CFD^FDALUTECH^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
+                        ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
-                      ^FO50,50^BY2^BCN,50,Y,,N
-                      ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
-                      `
-                      format_end = "^FS^XZ"
-                    } else if (self.arr[i].is_full === false) {
-                      format_start = `
-                      ^XA
+                        ^FO50,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
+                        `
+                        format_end = "^FS^XZ"
+                      } else {
+                        console.log(`jika kiri tidak penuh dan kanan tidak penuh`);
+                        format_start = `
+                        ^XA
 
-                      ^FO160,30^CFD^FDALUTECH^FS
-                      ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
-                      ^FO250,175^A0N,70,30^FH^FD*******^FS
-                      ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-                      ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
-                      ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
-                      ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
+                        ^FO160,30^CFD^FDALUTECH^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                        ^FO250,175^A0N,70,30^FH^FD*******^FS
+                        ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
-                      ^FO470,50^BY2^BCN,50,Y,,N
-                      ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
+                        ^FO470,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
-                      ^FO600,30^CFD^FDALUTECH^FS
-                      ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
-                      ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
-                      ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
-                      ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
-                      ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
+                        ^FO600,30^CFD^FDALUTECH^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO680,175^A0N,70,30^FH^FD*******^FS
+                        ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
+                        ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
-                      ^FO50,50^BY2^BCN,50,Y,,N
-                      ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
-                      `
-                      format_end = "^FS^XZ"
-                    }
-                    else {
-                      format_start = `
-                      ^XA
-                      ^FO160,30^CFD^FDALUTECH^FS
-                      ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
-                      ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-                      ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
-                      ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
-                      ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
+                        ^FO50,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
+                        `
+                        format_end = "^FS^XZ"
+                      }
 
-                      ^FO470,50^BY2^BCN,50,Y,,N
+                    } else if (self.arr[i].is_full) { // jika kiri penuh
+                      if (self.arr[i+1].is_full) { //dan jika kanan penuh
+                        console.log(`jika kiri penuh dan jika kanan penuh`);
+                        format_start = `
+                        ^XA
 
-                      ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
+                        ^FO160,30^CFD^FDALUTECH^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                        ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
-                      ^FO600,30^CFD^FDALUTECH^FS
-                      ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
-                      ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
-                      ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
-                      ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
-                      ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
+                        ^FO470,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
-                      ^FO50,50^BY2^BCN,50,Y,,N
-                      ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
-                      `
-                      format_end = "^FS^XZ"
+                        ^FO600,30^CFD^FDALUTECH^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
+                        ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
+
+                        ^FO50,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
+                        `
+                        format_end = "^FS^XZ"
+                      } else {
+                        console.log(`jika kiri penuh dan jika kanan tidak penuh`);
+                        format_start = `
+                        ^XA
+
+                        ^FO160,30^CFD^FDALUTECH^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                        ^FO250,175^A0N,70,30^FH^FD*******^FS
+                        ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
+
+                        ^FO470,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
+
+                        ^FO600,30^CFD^FDALUTECH^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
+                        ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
+
+                        ^FO50,50^BY2^BCN,50,Y,,N
+                        ^A0N,25,55^FH^FD${self.arr[i].barcode}^FS
+                        `
+                        format_end = "^FS^XZ"
+                      }
                     }
                   }
                   selected_printer.send(format_start + format_end, null, null)
@@ -311,7 +349,7 @@
                   token: localStorage.getItem('token_alutech')
                 }
               })
-              await self.getDataToPrint()
+              // window.close()
             } catch (err) {
               alert("Please try again", err.response.data.message)
             }
