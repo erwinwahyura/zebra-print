@@ -23,9 +23,12 @@
         <div class="printer-parent">
           <div id="printer_data_loading">print loading..</div>
           <printer-info
+            :token="token"
             @emit-check-conn="checkConnection"
+            @emit-logout="logOut"
           ></printer-info>
         </div>
+
         <list-barcode :data="arr"></list-barcode>
       </div>
       <div :class="{ init: !status }">
@@ -44,9 +47,15 @@
         data: {
           arr: [],
           status: true,
-          prod: 'http://35.240.223.197',
+          prod: 'http://api-alutech.uniform.id',
+          token: localStorage.getItem('token_print')
         },
         methods: {
+          logOut () {
+            localStorage.clear()
+            // window.location.href = "http://localhost:8080/login.html"
+            window.location.href = "http://alutech-print.uniform.id/login.html"
+          },
           checkConnection () {
             // alert('orint')
               this.sendData()
@@ -99,15 +108,18 @@
           },
           getDataToPrint () {
             let self = this
-            axios.get('http://35.240.223.197/label/list/print/list', {
+            axios.get('http://api-alutech.uniform.id/label/list/print/list', {
               headers: {
-                token: localStorage.getItem('token_alutech')
+                rolename: 'read',
+                roletable: 'Label',
+                token: localStorage.getItem('token_print')
               }
             }).then((barcode) => {
               self.arr = barcode.data.list
               self.status = false
             }).catch((err) => {
-              console.log(err)
+              alert(err.response.data.message)
+              this.logOut()
             })
           },
           updateDataPrint () {
@@ -129,10 +141,11 @@
                       format_start = `
               				^XA
               				^FO160,30^CFD^FDALUTECH^FS
-              				^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+              				^FO20,150^CFD^FDSECTION : ${self.arr[i].section.toUpperCase()}^FS
               				^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-              				^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+              				^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish.toUpperCase()}^FS
               				^FO20,240^A0,20,30^FH^FDQTY     : ${self.arr[i].quantity}^FS
+                      ^FO250,210^CFD^FDCODE  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
               				^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
               				^FO50,50^BY2^BCN,50,Y,,N
@@ -146,11 +159,12 @@
               				^XA
 
               				^FO160,30^CFD^FDALUTECH^FS
-              				^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+              				^FO20,150^CFD^FDSECTION : ${self.arr[i].section.toUpperCase()}^FS
                       ^FO250,175^A0N,70,30^FH^FD*******^FS
               				^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-              				^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+              				^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish.toUpperCase()}^FS
               				^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                      ^FO250,210^CFD^FDCODE  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
               				^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
               				^FO50,50^BY2^BCN,50,Y,,N
@@ -166,21 +180,23 @@
                         ^XA
 
                         ^FO160,30^CFD^FDALUTECH^FS
-                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section.toUpperCase()}^FS
                         ^FO250,175^A0N,70,30^FH^FD*******^FS
                         ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish.toUpperCase()}^FS
                         ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,210^CFD^FDCODE  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
                         ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
                         ^FO470,50^BY2^BCN,50,Y,,N
                         ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
                         ^FO600,30^CFD^FDALUTECH^FS
-                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section.toUpperCase()}^FS
                         ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
-                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish.toUpperCase()}^FS
                         ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
+                        ^FO680,210^CFD^FDCODE  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
                         ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
                         ^FO50,50^BY2^BCN,50,Y,,N
@@ -193,22 +209,24 @@
                         ^XA
 
                         ^FO160,30^CFD^FDALUTECH^FS
-                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section.toUpperCase()}^FS
                         ^FO250,175^A0N,70,30^FH^FD*******^FS
                         ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish.toUpperCase()}^FS
                         ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,210^CFD^FDCODE  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
                         ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
                         ^FO470,50^BY2^BCN,50,Y,,N
                         ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
                         ^FO600,30^CFD^FDALUTECH^FS
-                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section.toUpperCase()}^FS
                         ^FO680,175^A0N,70,30^FH^FD*******^FS
                         ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
-                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish.toUpperCase()}^FS
                         ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
+                        ^FO680,210^CFD^FDCODE  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
                         ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
                         ^FO50,50^BY2^BCN,50,Y,,N
@@ -224,20 +242,22 @@
                         ^XA
 
                         ^FO160,30^CFD^FDALUTECH^FS
-                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section.toUpperCase()}^FS
                         ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish.toUpperCase()}^FS
                         ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,210^CFD^FDCODE  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
                         ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
                         ^FO470,50^BY2^BCN,50,Y,,N
                         ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
                         ^FO600,30^CFD^FDALUTECH^FS
-                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section.toUpperCase()}^FS
                         ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
-                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish.toUpperCase()}^FS
                         ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
+                        ^FO680,210^CFD^FDCODE  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
                         ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
                         ^FO50,50^BY2^BCN,50,Y,,N
@@ -250,20 +270,22 @@
                         ^XA
 
                         ^FO160,30^CFD^FDALUTECH^FS
-                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section}^FS
-                        ^FO250,175^A0N,70,30^FH^FD*******^FS
+                        ^FO20,150^CFD^FDSECTION : ${self.arr[i].section.toUpperCase()}^FS
                         ^FO20,180^CFD^FDLENGTH  : ${self.arr[i].length}^FS
-                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish}^FS
+                        ^FO20,210^CFD^FDFINISH  : ${self.arr[i].finish.toUpperCase()}^FS
                         ^FO20,240^CFD^FDQTY     : ${self.arr[i].quantity}^FS
+                        ^FO250,210^CFD^FDCODE  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
                         ^FO250,240^CFD^FDTEMP : ${self.arr[i].temp}^FS
 
                         ^FO470,50^BY2^BCN,50,Y,,N
                         ^A0N,25,55^FH^FD${self.arr[i+1].barcode}^FS
 
                         ^FO600,30^CFD^FDALUTECH^FS
-                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section}^FS
+                        ^FO450,150^CFD^FDSECTION : ${self.arr[i+1].section.toUpperCase()}^FS
+                        ^FO680,175^A0N,70,30^FH^FD*******^FS
+                        ^FO680,210^CFD^FDCODE  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
                         ^FO450,180^CFD^FDLENGTH  : ${self.arr[i+1].length}^FS
-                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish}^FS
+                        ^FO450,210^CFD^FDFINISH  : ${self.arr[i+1].finish.toUpperCase()}^FS
                         ^FO450,240^CFD^FDQTY     : ${self.arr[i+1].quantity}^FS
                         ^FO680,240^CFD^FDTEMP : ${self.arr[i+1].temp}^FS
 
@@ -332,27 +354,33 @@
           async printComplete() {
             let self = this
           	self.hideLoading()
-          	alert ("Printing complete")
             let arrLabels = []
             self.arr.forEach(v => {
               arrLabels.push(v.label)
             })
+            console.log(arrLabels)
+            console.log(self.arr[0].section);
+            console.log(self.arr[0].sectionid);
+            console.log(self.arr[0].sectioninid);
             try {
-              await axios.put(`http://35.240.223.197/section/in/print/label/${self.arr[0].sectioninid}`, {
+              await axios.put(`http://api-alutech.uniform.id/section/in/print/label/${self.arr[0].sectioninid}`, {
                 labels: arrLabels,
                 section: self.arr[0].section,
                 sectionid: self.arr[0].sectionid
               }, {
                 headers: {
-                  rolename: 'approve',
+                  rolename: 'write',
                   roletable: 'Section In',
-                  token: localStorage.getItem('token_alutech')
+                  token: localStorage.getItem('token_print')
                 }
               })
-              // window.close()
+              console.log('updated');
             } catch (err) {
+              console.log(err.response, '<--error');
               alert("Please try again", err.response.data.message)
             }
+            alert ("Printing complete")
+            window.close()
 
           },
           hideLoading () {
@@ -377,12 +405,13 @@
           }
         },
         created () {
-          let token = localStorage.getItem('token_alutech')
+          let token = localStorage.getItem('token_print')
           if (token) {
             this.getDataToPrint()
             $('#printer_data_loading').hide()
           } else {
             window.location.href = "http://alutech-print.uniform.id/login.html"
+            // window.location.href = "http://localhost:8080/login.html"
           }
 
 

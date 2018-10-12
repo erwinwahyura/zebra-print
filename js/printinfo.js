@@ -12,6 +12,7 @@ Vue.component('printer-info', {
       </div> <!-- /printer_select -->
       <div id="print_form" class="btn-print">
         <button type="button" class="btn-primary" @click="checkConnection" value="Print">Print Barcode!</button>
+        <button type="button" class="btn-primary" @click="logout" value="Print">LogOut!</button>
       </div> <!-- /print_form -->
       <div id="error_div" class="error-page"><div id="error_message"></div>
         <button type="button" class="btn btn-success" onclick="trySetupAgain()">Try Again</button>
@@ -24,6 +25,9 @@ Vue.component('printer-info', {
   methods: {
     checkConnection () {
       this.$emit('emit-check-conn')
+    },
+    logout () {
+      this.$emit('emit-logout')
     }
   },
   created () {
