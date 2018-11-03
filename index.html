@@ -47,14 +47,17 @@
         data: {
           arr: [],
           status: true,
-          prod: 'http://http://35.240.223.197',
-          token: localStorage.getItem('token_print')
+          prod: 'http://api-alutech.uniform.id',
+          dev: 'http://35.240.223.197',
+          token: localStorage.getItem('token_print_dev'),
+          imageLeft: `^FO48,30^GFA,1443,1443,37,,K0F,K0F8N01EJ0EN0EL0383UFE003LF03L0CJ01F8N07FI01FM01FL07C7VF00MF878J01EJ03FCN0FF8001FM01FL07C7VF01MFC78J01EJ03FEM01FFC001FM01FL07C3VF03MF878J01EJ07FEM01FFE001FM01FL07CI03ES03MF878J01EJ079FM03FFE001FM01FL07CI03EK07KFE07MF078J01EJ0F0FM07E3F001FM01FL07CI03EJ01MF07EM078J01EJ0F078L07E1F801FM01FL07CI03EJ03MF07CM078J01EI01E078L0FC1FC01FM01FL07CI03EJ07MF0FCM07LFEI03C03CK01F80FC01FM01FL07CI03EJ0NF0F8M07LFEI03C03EK03F007E01FM01FL07CI03EJ0FEM0F8M07LFEI07801EK03F003F01FM01FL07CI03EJ0FCM0FCM07LFEI078F0FK07E003F81FM01FL0FCI03EJ0FCM07CM07CJ01EI0F3FEFK0FC001F81FM01F8K0F8I03EJ0FCM07CM078J01EI0E7FF78I01F8I0FC1FN0FCJ01F8I03EJ0FEM07EM078J01E001EIFB8I01F8I07E1MFE0NF8I03EJ0NF07MF878J01E003DF0FBCI03FJ07E0MFE07MFJ03EJ07MF03MFC78J01E0039E03DEI03EJ03F0NF07MFJ03EJ07MF01MFC78J01E007BC03CEI03EJ01F07LFE03LFEJ03EJ03MF00MF878J01E0073C01EFI03CK0E01LFE00LF8J01CK0MF007LF838K0E00F3C01E7,00E3C01E78,01C3C01C38,03C3C03C1CI010018O04J018Q07F8K08R04,0381E07C1EI038018O0EJ018Q07FCJ01CR0E,0701IF80EI078018O06J018Q07L01CR0C,0700IF007I07C018gM06L01C,0E007FF007I0FC0180E181FFC0E0FF81818707FF8I06001C707F83FC1C303F80E07F03FE1C01IF803800CE0180E181FFE0E0FF81818707FF8I07F00EE03F03FC1C303FC0E0FF83FE1C07FDFE01C01CE0180E1818CE0E0E18181870739CI07E007C01C03881C303800E0E38386381FE07FC1C01FF0180E1818CE0E0E18181870739CI06I03C01C03801C303F00E0E38386387FI0FF0E03FF0180E1818CE0E0E18181870739CI06I07C01C03801C3007C0E0E3838671FCI01FC603838180E1818CE0E0E18181C70739CI06I0FE01C03801C7001E0E0E383866FEK07F7070381E07F818CE0E0E18181FF0739CI07F81C701C03801FF03FC0E07F03867FM0FF060180E03F818C6060618180FF07318I07F8183018038007F01F80C03E01867CM01F,,^FS`,
+          imageRight: `^FO468,30^GFA,1443,1443,37,,K0F,K0F8N01EJ0EN0EL0383UFE003LF03L0CJ01F8N07FI01FM01FL07C7VF00MF878J01EJ03FCN0FF8001FM01FL07C7VF01MFC78J01EJ03FEM01FFC001FM01FL07C3VF03MF878J01EJ07FEM01FFE001FM01FL07CI03ES03MF878J01EJ079FM03FFE001FM01FL07CI03EK07KFE07MF078J01EJ0F0FM07E3F001FM01FL07CI03EJ01MF07EM078J01EJ0F078L07E1F801FM01FL07CI03EJ03MF07CM078J01EI01E078L0FC1FC01FM01FL07CI03EJ07MF0FCM07LFEI03C03CK01F80FC01FM01FL07CI03EJ0NF0F8M07LFEI03C03EK03F007E01FM01FL07CI03EJ0FEM0F8M07LFEI07801EK03F003F01FM01FL07CI03EJ0FCM0FCM07LFEI078F0FK07E003F81FM01FL0FCI03EJ0FCM07CM07CJ01EI0F3FEFK0FC001F81FM01F8K0F8I03EJ0FCM07CM078J01EI0E7FF78I01F8I0FC1FN0FCJ01F8I03EJ0FEM07EM078J01E001EIFB8I01F8I07E1MFE0NF8I03EJ0NF07MF878J01E003DF0FBCI03FJ07E0MFE07MFJ03EJ07MF03MFC78J01E0039E03DEI03EJ03F0NF07MFJ03EJ07MF01MFC78J01E007BC03CEI03EJ01F07LFE03LFEJ03EJ03MF00MF878J01E0073C01EFI03CK0E01LFE00LF8J01CK0MF007LF838K0E00F3C01E7,00E3C01E78,01C3C01C38,03C3C03C1CI010018O04J018Q07F8K08R04,0381E07C1EI038018O0EJ018Q07FCJ01CR0E,0701IF80EI078018O06J018Q07L01CR0C,0700IF007I07C018gM06L01C,0E007FF007I0FC0180E181FFC0E0FF81818707FF8I06001C707F83FC1C303F80E07F03FE1C01IF803800CE0180E181FFE0E0FF81818707FF8I07F00EE03F03FC1C303FC0E0FF83FE1C07FDFE01C01CE0180E1818CE0E0E18181870739CI07E007C01C03881C303800E0E38386381FE07FC1C01FF0180E1818CE0E0E18181870739CI06I03C01C03801C303F00E0E38386387FI0FF0E03FF0180E1818CE0E0E18181870739CI06I07C01C03801C3007C0E0E3838671FCI01FC603838180E1818CE0E0E18181C70739CI06I0FE01C03801C7001E0E0E383866FEK07F7070381E07F818CE0E0E18181FF0739CI07F81C701C03801FF03FC0E07F03867FM0FF060180E03F818C6060618180FF07318I07F8183018038007F01F80C03E01867CM01F,,^FS`
         },
         methods: {
           logOut () {
             localStorage.clear()
-            window.location.href = "http://localhost:8080/login.html"
-            // window.location.href = "http://alutech-print.uniform.id/login.html"
+            // window.location.href = "http://localhost:8080/login.html"
+            window.location.href = "http://dev-alutech-print.uniform.id/login.html"
           },
           checkConnection () {
             // alert('orint')
@@ -108,13 +111,14 @@
           },
           getDataToPrint () {
             let self = this
-            axios.get('http://35.240.223.197/label/list/print/list', {
+            axios.get(`${self.dev}/label/list/print/list`, {
               headers: {
                 rolename: 'read',
                 roletable: 'Label',
-                token: localStorage.getItem('token_print')
+                token: localStorage.getItem('token_print_dev')
               }
             }).then((barcode) => {
+              console.log(barcode);
               self.arr = barcode.data.list
               self.status = false
             }).catch((err) => {
@@ -140,10 +144,11 @@
                       console.log('jika ganjil dan kiri penuh');
                       format_start = `
               				^XA
-              				^FO160,30^A2,40,10^FH^FDAlutech^FS
+
+              				${self.imageLeft}
               				^FO20,180^A2,40,10^FH^FDSection   : ${self.arr[i].section.toUpperCase()}^FS
               				^FO20,230^A2,40,10^FH^FDQuantity  : ${self.arr[i].quantity}^FS
-                      ^FO20,280^A2,40,10^FH^FDCustomer  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
+                      ^FO20,280^A2,40,10^FH^FD ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
               				^FO50,80^BY2^BCN,50,Y,,N
               				^A0N,30,55^FH^FD${self.arr[i].barcode}^FS
               				`
@@ -153,11 +158,11 @@
                       format_start = `
               				^XA
 
-              				^FO160,30^A2,40,10^FH^FDAlutech^FS
+              				${self.imageLeft}
               				^FO20,180^A2,40,10^FH^FDSection   : ${self.arr[i].section.toUpperCase()}^FS
                       ^FO250,230^A2,40,10^FH^FD*******^FS
               				^FO20,230^A2,40,10^FH^FDQuantity  : ${self.arr[i].quantity}^FS
-                      ^FO20,280^A2,40,10^FH^FDCustomer  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
+                      ^FO20,280^A2,40,10^FH^FD ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
 
               				^FO50,80^BY2^BCN,50,Y,,N
               				^A0N,45,55^FH^FD${self.arr[i].barcode}^FS
@@ -172,19 +177,19 @@
                         format_start = `
                         ^XA
 
-                        ^FO160,30^A2,40,10^FH^FDAlutech^FS
+                        ${self.imageLeft}
                         ^FO20,180^A2,40,10^FH^FDSection   : ${self.arr[i].section.toUpperCase()}^FS
                         ^FO250,230^A2,40,10^FH^FD*******^FS
                         ^FO20,230^A2,40,10^FH^FDQuantity  : ${self.arr[i].quantity}^FS
-                        ^FO20,280^A2,40,10^FH^FDCustomer  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
+                        ^FO20,280^A2,40,10^FH^FD ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO470,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i+1].barcode}^FS
 
-                        ^FO600,30^A2,40,10^FH^FDAlutech^FS
+                        ${self.imageRight}
                         ^FO450,180^A2,40,10^FH^FDSection   : ${self.arr[i+1].section.toUpperCase()}^FS
                         ^FO450,230^A2,40,10^FH^FDQuantity  : ${self.arr[i+1].quantity}^FS
-                        ^FO450,280^A2,40,10^FH^FDCustomer  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
+                        ^FO450,280^A2,40,10^FH^FD ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO50,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i].barcode}^FS
@@ -195,20 +200,20 @@
                         format_start = `
                         ^XA
 
-                        ^FO160,30^A2,40,10^FH^FDAlutech^FS
+                        ${self.imageLeft}
                         ^FO20,180^A2,40,10^FH^FDSection   : ${self.arr[i].section.toUpperCase()}^FS
                         ^FO250,230^A2,40,10^FH^FD*******^FS
                         ^FO20,230^A2,40,10^FH^FDQuantity  : ${self.arr[i].quantity}^FS
-                        ^FO20,280^A2,40,10^FH^FDCustomer  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
+                        ^FO20,280^A2,40,10^FH^FD ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO470,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i+1].barcode}^FS
 
-                        ^FO600,30^A2,40,10^FH^FDAlutech^FS
+                        ${self.imageRight}
                         ^FO450,180^A2,40,10^FH^FDSection   : ${self.arr[i+1].section.toUpperCase()}^FS
                         ^FO680,230^A2,40,10^FH^FD*******^FS
                         ^FO450,230^A2,40,10^FH^FDQuantity  : ${self.arr[i+1].quantity}^FS
-                        ^FO450,280^A2,40,10^FH^FDCustomer  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
+                        ^FO450,280^A2,40,10^FH^FD ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO50,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i].barcode}^FS
@@ -222,18 +227,18 @@
                         format_start = `
                         ^XA
 
-                        ^FO160,30^A2,40,10^FH^FDAlutech^FS
+                        ${self.imageLeft}
                         ^FO20,180^A2,40,10^FH^FDSection   : ${self.arr[i].section.toUpperCase()}^FS
-                        ^FO20,230^A0,20,40^FH^FDQuantity  : ${self.arr[i].quantity}^FS
-                        ^FO20,280^A2,40,10^FH^FDCustomer  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
+                        ^FO20,230^A2,40,10^FH^FDQuantity  : ${self.arr[i].quantity}^FS
+                        ^FO20,280^A2,40,10^FH^FD ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO470,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i+1].barcode}^FS
 
-                        ^FO600,30^A2,40,10^FH^FDAlutech^FS
+                        ${self.imageRight}
                         ^FO450,180^A2,40,10^FH^FDSection   : ${self.arr[i+1].section.toUpperCase()}^FS
                         ^FO450,230^A2,40,10^FH^FDQuantity  : ${self.arr[i+1].quantity}^FS
-                        ^FO450,280^A2,40,10^FH^FDCustomer  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
+                        ^FO450,280^A2,40,10^FH^FD ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO50,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i].barcode}^FS
@@ -247,16 +252,16 @@
                         ^FO160,25^A2,40,10^FH^FDAlutech^FS
                         ^FO20,180^A2,40,10^FH^FDSection   : ${self.arr[i].section.toUpperCase()}^FS
                         ^FO20,230^A2,40,10^FH^FDQuantity  : ${self.arr[i].quantity}^FS
-                        ^FO20,280^A2,40,10^FH^FDCustomer  : ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
+                        ^FO20,280^A2,40,10^FH^FD ${self.arr[i].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO470,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i+1].barcode}^FS
 
-                        ^FO600,30^A2,40,10^FH^FDAlutech^FS
+                        ${self.imageRight}
                         ^FO450,180^A2,40,10^FH^FDSection   : ${self.arr[i+1].section.toUpperCase()}^FS
                         ^FO680,230^A2,40,10^FH^FD*******^FS
                         ^FO450,230^A2,40,10^FH^FDQuantity  : ${self.arr[i+1].quantity}^FS
-                        ^FO450,280^A2,40,10^FH^FDCustomer  : ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
+                        ^FO450,280^A2,40,10^FH^FD ${self.arr[i+1].customer.factoryCode.toUpperCase()}^FS
 
                         ^FO50,80^BY2^BCN,50,Y,,N
                         ^A0N,45,55^FH^FD${self.arr[i].barcode}^FS
@@ -332,7 +337,7 @@
             console.log(self.arr[0].sectionid);
             console.log(self.arr[0].sectioninid);
             try {
-              await axios.put(`http://35.240.223.197/section/in/print/label/${self.arr[0].sectioninid}`, {
+              await axios.put(`${self.dev}/section/in/print/label/${self.arr[0].sectioninid}`, {
                 labels: arrLabels,
                 section: self.arr[0].section,
                 sectionid: self.arr[0].sectionid
@@ -340,7 +345,7 @@
                 headers: {
                   rolename: 'write',
                   roletable: 'Section In',
-                  token: localStorage.getItem('token_print')
+                  token: localStorage.getItem('token_print_dev')
                 }
               })
               console.log('updated');
@@ -374,13 +379,13 @@
           }
         },
         created () {
-          let token = localStorage.getItem('token_print')
+          let token = localStorage.getItem('token_print_dev')
           if (token) {
             this.getDataToPrint()
             $('#printer_data_loading').hide()
           } else {
-            // window.location.href = "http://alutech-print.uniform.id/login.html"
-            window.location.href = "http://localhost:8080/login.html"
+            window.location.href = "http://dev-alutech-print.uniform.id/login.html"
+            // window.location.href = "http://localhost:8080/login.html"
           }
 
 

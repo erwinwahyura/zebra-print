@@ -42,19 +42,19 @@
               email: self.email,
               password: self.pass
             }).then(res => {
-              localStorage.setItem('token_print', res.data.token)
-              // window.location.href = 'http://alutech-print.uniform.id/index.html'
-              window.location.href = "http://localhost:8080/index.html"
+              localStorage.setItem('token_print_dev', res.data.token)
+              window.location.href = 'http://dev-alutech-print.uniform.id/index.html'
+              // window.location.href = "http://localhost:8080/index.html"
             }).catch(err => {
               alert(err.response.message)
             })
           }
         },
         created () {
-          let token = localStorage.getItem('token_print')
+          let token = localStorage.getItem('token_print_dev')
           if (token) {
-            // window.location.href = 'http://alutech-print.uniform.id/index.html'
-            window.location.href = "http://localhost:8080/index.html"
+            window.location.href = 'http://dev-alutech-print.uniform.id/index.html'
+            // window.location.href = "http://localhost:8080/index.html"
           }
         }
       })
