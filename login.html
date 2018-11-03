@@ -38,12 +38,12 @@
           login (event) {
             event.preventDefault()
             let self = this
-            axios.post('http://api-alutech.uniform.id/user/entry/login', {
+            axios.post('http://35.240.223.197/user/entry/login', {
               email: self.email,
               password: self.pass
             }).then(res => {
-              localStorage.setItem('token_print', res.data.token)
-              window.location.href = 'http://alutech-print.uniform.id/index.html'
+              localStorage.setItem('token_print_dev', res.data.token)
+              window.location.href = 'http://dev.print.alutech.uniform.id.s3-website-ap-southeast-1.amazonaws.com/index.html'
               // window.location.href = "http://localhost:8080/index.html"
             }).catch(err => {
               alert(err.response.message)
@@ -51,9 +51,9 @@
           }
         },
         created () {
-          let token = localStorage.getItem('token_print')
+          let token = localStorage.getItem('token_print_dev')
           if (token) {
-            window.location.href = 'http://alutech-print.uniform.id/index.html'
+            window.location.href = 'http://dev.print.alutech.uniform.id.s3-website-ap-southeast-1.amazonaws.com/index.html'
             // window.location.href = "http://localhost:8080/index.html"
           }
         }
