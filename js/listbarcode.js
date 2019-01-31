@@ -35,6 +35,6 @@ Vue.component('list-barcode', {
     }
   },
   methods: {
-
+    
   }
 })
